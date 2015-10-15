@@ -6,7 +6,7 @@
  */
 
 /**
- * \mainpage User Application template doxygen documentation
+ * \main page User Application template doxygen documentation
  *
  * \par Empty user application template
  *
@@ -36,6 +36,22 @@
 xTaskHandle hdrTestTsk;
 ///Prototypes
 void vTestTask( void * pvParemeters);
+//*****************************************************************************
+//
+// This hook is called by FreeRTOS when an stack overflow error is detected.
+//
+//*****************************************************************************
+void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed char *pcTaskName)
+{
+    //
+    // This function can not return, so loop forever.  Interrupts are disabled
+    // on entry to this function, so no processor interrupts will interrupt
+    // this loop.
+    //
+    while(1)
+    {
+    }
+}
 /*
 *\brief This is the main function needed for the tool chain
 *\param No parameter supported
@@ -44,11 +60,12 @@ void vTestTask( void * pvParemeters);
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
-
+	//pmic_init(); 
+	sysclk_init();
 	board_init();
 	// Insert application code here, after the board has been initialized.
 	//create task, timers, queues, etc. 
-	xTaskCreate(vTestTask,"TestTask",configMINIMAL_STACK_SIZE * 2,NULL,tskIDLE_PRIORITY,&hdrTestTsk);
+	xTaskCreate(vTestTask,"Motor Task",configMINIMAL_STACK_SIZE * 2,NULL,tskIDLE_PRIORITY,&hdrTestTsk);
 
 	// Start the scheduler.
 	vTaskStartScheduler();

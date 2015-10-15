@@ -2,7 +2,8 @@
 
 #ifndef PORTMACRO_H
 #define PORTMACRO_H
-#include "avr_compiler.h"
+//#include "avr_compiler.h"
+#include <asf.h>
 #ifdef __cplusplus
 extern "C" {
 #endif

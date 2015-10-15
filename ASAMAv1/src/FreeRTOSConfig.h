@@ -1,11 +1,4 @@
 
-/* The following #error directive is to remind users that a batch file must be
- * executed prior to this project being built.  The batch file *cannot* be 
- * executed from within CCS4!  Once it has been executed, re-open or refresh 
- * the CCS4 project and remove the #error line below.
- */
-//#error Ensure CreateProjectDirectoryStructure.bat has been executed before building.  See comment immediately above.
-
 
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
@@ -23,12 +16,12 @@
  *----------------------------------------------------------*/
 
 #define configUSE_PREEMPTION			1
-#define configUSE_IDLE_HOOK				1
-#define configUSE_TICK_HOOK				1
+#define configUSE_IDLE_HOOK				0
+#define configUSE_TICK_HOOK				0
 #define configCPU_CLOCK_HZ				( 25000000UL )	
 #define configTICK_RATE_HZ				( ( portTickType ) 1000 )
 #define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 5 )
-#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 10 * 1024 ) )
+#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 7 * 1024 ) )
 #define configMAX_TASK_NAME_LEN			( 10 )
 #define configUSE_TRACE_FACILITY		0
 #define configUSE_16_BIT_TICKS			1
@@ -38,7 +31,7 @@
 #define configGENERATE_RUN_TIME_STATS	0
 #define configCHECK_FOR_STACK_OVERFLOW	2
 #define configUSE_RECURSIVE_MUTEXES		1
-#define configUSE_MALLOC_FAILED_HOOK	1
+#define configUSE_MALLOC_FAILED_HOOK	0
 #define configUSE_APPLICATION_TASK_TAG	0
 #define configUSE_COUNTING_SEMAPHORES	1
 
@@ -68,13 +61,13 @@ to exclude the API function. */
 #define INCLUDE_vTaskDelayUntil			1
 #define INCLUDE_vTaskDelay				1
 
-/* The MSP430X port uses a callback function to configure its tick interrupt.
+/* The XMEGA128 port uses a callback function to configure its tick interrupt.
 This allows the application to choose the tick interrupt source.
 configTICK_VECTOR must also be set in FreeRTOSConfig.h to the correct interrupt
 vector for the chosen tick interrupt source.  This implementation of
 vApplicationSetupTimerInterrupt() generates the tick from timer A0, so in this
-case configTICK_VECTOR is set to TIMER0_A0_VECTOR. */
-#define configTICK_VECTOR				TIMER0_A0_VECTOR
+case configTICK_VECTOR is set to TCC0_OVF_vect. */
+#define configTICK_VECTOR				TCC0_OVF_vect
 	
 #define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }	
 	
