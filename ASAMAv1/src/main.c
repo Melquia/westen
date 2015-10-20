@@ -37,6 +37,8 @@
 xTaskHandle hdrTestTsk;
 ///Prototypes
 void vTestTask( void * pvParemeters);
+void vTestTask2( void * pvParemeters);
+void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed char *pcTaskName);
 //*****************************************************************************
 //
 // This hook is called by FreeRTOS when an stack overflow error is detected.
@@ -67,7 +69,7 @@ int main (void)
 	// Insert application code here, after the board has been initialized.
 	//create task, timers, queues, etc. 
 	xTaskCreate(vTestTask,"Motor Task",configMINIMAL_STACK_SIZE * 2,NULL,tskIDLE_PRIORITY,&hdrTestTsk);
-
+	xTaskCreate(vTestTask2,"HMI Task",configMINIMAL_STACK_SIZE * 2,NULL,tskIDLE_PRIORITY,&hdrTestTsk);
 	// Start the scheduler.
 	vTaskStartScheduler();
 }
@@ -80,9 +82,28 @@ void vTestTask( void * pvParemeters)
 {
 	Assert(pvParemeters);
 	//Here we can make some configurations needed previous to run the task.
+	portTickType xLastWakeTime;
+	const portTickType xFrequency = 10;
+
+	// Initialise the xLastWakeTime variable with the current time.
+	xLastWakeTime = xTaskGetTickCount ();
 	for (;;)
 	{
-		
+		// Wait for the next cycle.
+		vTaskDelayUntil( &xLastWakeTime, xFrequency );
 	}
 }
-
+/*
+\brief This task is not defined yet, it is used for test purposes.
+\param Parameters not defined yet.
+*/
+void vTestTask2( void * pvParemeters)
+{
+	Assert(pvParemeters);
+	//Here we can make some configurations needed previous to run the task.
+	const portTickType xDelay = 500 / portTICK_RATE_MS;
+	for (;;)
+	{
+		vTaskDelay( xDelay );
+	}
+}
