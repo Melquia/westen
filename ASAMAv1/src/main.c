@@ -28,8 +28,7 @@
  /**
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
- 
- #include "FreeRTOS.h"
+ #include "FreeRTOS.h"		//lo que sea
  #include "task.h"
  #include "FreeRTOSConfig.h"
 #include <asf.h>
@@ -37,7 +36,6 @@
 xTaskHandle hdrTestTsk;
 ///Prototypes
 void vTestTask( void * pvParemeters);
-void vTestTask2( void * pvParemeters);
 void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed char *pcTaskName);
 //*****************************************************************************
 //
